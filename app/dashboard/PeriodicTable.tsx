@@ -163,16 +163,10 @@ function lerp(a: number, b: number, t: number) {
 }
 
 function netWorthToColor(netWorth: number): string {
-  const clamped = Math.max(0, Math.min(200_000, netWorth));
-  const [c1, c2, t] =
-    clamped <= 100_000
-      ? ([COLOR_RED, COLOR_MID, clamped / 100_000] as const)
-      : ([COLOR_MID, COLOR_GREEN, (clamped - 100_000) / 100_000] as const);
-
-  const r = Math.round(lerp(c1[0], c2[0], t));
-  const g = Math.round(lerp(c1[1], c2[1], t));
-  const b = Math.round(lerp(c1[2], c2[2], t));
-  return `rgb(${r}, ${g}, ${b})`;
+  const c =
+    netWorth < 100_000 ? 
+    (COLOR_RED) : (netWorth > 100_000 && netWorth < 200_000 ? (COLOR_MID) : (COLOR_GREEN))
+  return c;
 }
 
 function defaultTileColor(): string {
