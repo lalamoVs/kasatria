@@ -153,14 +153,9 @@ interface PersonRow {
 }
 
 // --- Net worth -> color, linearly interpolated across three stops ---
-// <$100K: red, $100K: mid, >=$200K: green
-const COLOR_RED: [number, number, number] = [0xef, 0x30, 0x22]; // #EF3022
-const COLOR_MID: [number, number, number] = [0xfd, 0xca, 0x35]; // #FDCA35
-const COLOR_GREEN: [number, number, number] = [0x3a, 0x9f, 0xa8]; // #3A9FA8
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
+const COLOR_RED = '#EF3022';
+const COLOR_MID = '#FDCA35';
+const COLOR_GREEN = '#3A9F4B';
 
 function netWorthToColor(netWorth: number): string {
   const c =
