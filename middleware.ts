@@ -2,12 +2,23 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-// Force Node.js runtime
-export const runtime = 'nodejs';
+export const runtime = 'nodejs'; // Force Node.js runtime
 
 export default withAuth(
   function middleware(req) {
-    // ... your middleware logic
+    const token = req.nextauth.token;
+    const path = req.nextUrl.pathname;
+
+    // Your existing logic remains the same
+    if (token && (path === "/" || path === "/signin")) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
+    if (!token && path.startsWith("/dashboard")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    return NextResponse.next();
   },
   {
     callbacks: {
@@ -17,9 +28,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: [
-    "/",
-    "/dashboard/:path*",
-    "/signin",
-  ],
+  matcher: ["/", "/dashboard/:path*", "/signin"],
 };
