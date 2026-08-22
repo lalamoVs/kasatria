@@ -154,9 +154,9 @@ interface PersonRow {
 
 // --- Net worth -> color, linearly interpolated across three stops ---
 // <$100K: red, $100K: mid, >=$200K: green
-const COLOR_RED = '#EF3022';
-const COLOR_MID = '#FDCA35';
-const COLOR_GREEN = '#3A9F4B';
+const COLOR_RED: [number, number, number] = [0xef, 0x30, 0x22]; // #EF3022
+const COLOR_MID: [number, number, number] = [0xfd, 0xca, 0x35]; // #FDCA35
+const COLOR_GREEN: [number, number, number] = [0x3a, 0x9f, 0xa8]; // #3A9FA8
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -273,7 +273,6 @@ export default function PeriodicTable() {
 
   useEffect(() => {
     const container = containerRef.current;
-    // Fix: Check if container is null early
     if (!container) return;
 
     let camera: THREE.PerspectiveCamera;
@@ -401,7 +400,7 @@ export default function PeriodicTable() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.domElement.style.position = 'absolute';
       renderer.domElement.style.top = '0px';
-      container?.appendChild(renderer.domElement);
+      container.appendChild(renderer.domElement);
 
       controls = new TrackballControls(camera, renderer.domElement);
       controls.minDistance = 500;
@@ -436,7 +435,6 @@ export default function PeriodicTable() {
       controls.removeEventListener('change', render);
       controls.dispose();
 
-      // Fix: Check if renderer.domElement.parentNode exists before removing
       if (renderer && renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement);
       }
@@ -485,7 +483,7 @@ export default function PeriodicTable() {
     <>
       <div id="container" ref={containerRef} className="w-full h-screen overflow-hidden" />
 
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+      <div className="pt-import-bar absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
         <input
           type="text"
           value={sheetUrl}
@@ -505,7 +503,7 @@ export default function PeriodicTable() {
         )}
       </div>
 
-      <div id="menu" className="absolute bottom-5 w-full text-center z-10">
+      <div id="menu" className="pt-menu-bar absolute bottom-5 w-full text-center z-10">
         <button
           onClick={() => transformRef.current?.('table')}
           className="px-4 py-2 mx-2 text-cyan-300 bg-transparent border border-cyan-300 rounded cursor-pointer hover:bg-cyan-500/30 hover:text-white transition-colors"
