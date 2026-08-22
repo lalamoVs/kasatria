@@ -18,17 +18,16 @@ export default withAuth(
 
     return NextResponse.next();
   },
-//   {
-//     callbacks: {
-//       authorized: ({ token }) => {
-//         // Return true if token exists (user is authenticated)
-//         return !!token;
-//       },
-//     },
-//   }
+  {
+    callbacks: {
+      authorized: ({ token }) => {
+        // This is REQUIRED for production
+        return !!token;
+      },
+    },
+  }
 );
 
-// Specify which routes to protect
 export const config = {
   matcher: [
     "/",
