@@ -1,8 +1,5 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-
-export const runtime = 'nodejs'; // Force Node.js runtime
 
 export default withAuth(
   function middleware(req) {
