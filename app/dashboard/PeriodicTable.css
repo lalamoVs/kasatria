@@ -92,3 +92,35 @@
   text-overflow: ellipsis;
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
 }
+
+/* --- UI overlay layer: plain CSS, independent of Tailwind --- */
+/* Guarantees the controls stay clickable and on top of the CSS3DRenderer
+   canvas even if Tailwind's utility classes fail to apply for any reason. */
+
+.pt-import-bar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.pt-menu-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  text-align: center;
+  pointer-events: none;
+}
+
+.pt-menu-bar button,
+.pt-import-bar button,
+.pt-import-bar input {
+  pointer-events: auto;
+}
