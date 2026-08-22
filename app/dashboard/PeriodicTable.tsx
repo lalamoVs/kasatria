@@ -406,7 +406,7 @@ export default function PeriodicTable() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.domElement.style.position = 'absolute';
       renderer.domElement.style.top = '0px';
-      container.appendChild(renderer.domElement);
+      container?.appendChild(renderer.domElement);
 
       controls = new TrackballControls(camera, renderer.domElement);
       controls.minDistance = 500;
